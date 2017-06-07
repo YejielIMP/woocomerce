@@ -35,6 +35,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 	 	return;
 	 }
 ?>
+<div class="width-960">
+		<?php
+			/**
+			 * woocommerce_single_product_summary_title hook.
+			 *
+			 * @hooked woocommerce_template_single_title - 5
+			
+			 */
+			do_action( 'woocommerce_single_product_summary_title' );
+		?>
 
 <div id="product-<?php the_ID(); ?>" <?php post_class(); ?>>
 
@@ -67,7 +77,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		?>
 
 	</div><!-- .summary -->
-
+</div>
 	<?php
 		/**
 		 * woocommerce_after_single_product_summary hook.
@@ -80,5 +90,30 @@ if ( ! defined( 'ABSPATH' ) ) {
 	?>
 
 </div><!-- #product-<?php the_ID(); ?> -->
+<div class="breaker"></div>
+<?php
+ 
+/* crossells */
+ 
+$crosssell_ids = get_post_meta( get_the_ID(), '_crosssell_ids' ); 
+$crosssell_ids=$crosssell_ids[0];
 
+?>
+<div class="needToChangeThisOne"> 
+
+<?php
+if(count($crosssell_ids)>0){
+ 
+    ?><h1 class="tryIt">Try a Recipe with this Product</h1> '><?php
+$args = array( 'post_type' => 'product', 'posts_per_page' => 10, 'post__in' => $crosssell_ids );
+$loop = new WP_Query( $args );
+while ( $loop->have_posts() ) : $loop->the_post();
+?><a href='<?php the_permalink(); ?>'><?php
+the_post_thumbnail( 'thumbnail' );
+the_title();
+?></a><?php
+endwhile;
+}
+?>
+</div>
 <?php do_action( 'woocommerce_after_single_product' ); ?>

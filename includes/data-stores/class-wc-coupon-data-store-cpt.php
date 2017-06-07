@@ -175,16 +175,12 @@ class WC_Coupon_Data_Store_CPT extends WC_Data_Store_WP implements WC_Coupon_Dat
 
 		$id = $coupon->get_id();
 
-		if ( ! $id ) {
-			return;
-		}
-
 		if ( $args['force_delete'] ) {
-			wp_delete_post( $id );
+			wp_delete_post( $coupon->get_id() );
 			$coupon->set_id( 0 );
 			do_action( 'woocommerce_delete_coupon', $id );
 		} else {
-			wp_trash_post( $id );
+			wp_trash_post( $coupon->get_id() );
 			do_action( 'woocommerce_trash_coupon', $id );
 		}
 	}

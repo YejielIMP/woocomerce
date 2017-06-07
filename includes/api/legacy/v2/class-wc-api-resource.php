@@ -271,10 +271,15 @@ class WC_API_Resource {
 				// customer meta
 				$meta = (array) get_user_meta( $resource->ID );
 
+			} elseif ( is_a( $resource, 'WC_Product_Variation' ) ) {
+
+				// product variation meta
+				$meta = (array) get_post_meta( $resource->get_variation_id() );
+
 			} else {
 
 				// coupon/order/product meta
-				$meta = (array) get_post_meta( $resource->get_id() );
+				$meta = (array) get_post_meta( $resource->id );
 			}
 
 			foreach ( $meta as $meta_key => $meta_value ) {

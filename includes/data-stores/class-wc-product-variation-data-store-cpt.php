@@ -203,12 +203,11 @@ class WC_Product_Variation_Data_Store_CPT extends WC_Product_Data_Store_CPT impl
 	protected function generate_product_title( $product ) {
 		$attributes = (array) $product->get_attributes();
 
-		// Do not include attributes if the product has 3+ attributes.
+		// Don't include attributes if the product has 3+ attributes.
 		$should_include_attributes = count( $attributes ) < 3;
 
-		// Do not include attributes if an attribute name has 2+ words and the
-		// product has multiple attributes.
-		if ( $should_include_attributes && 1 < count( $attributes ) ) {
+		// Don't include attributes if an attribute name has 2+ words.
+		if ( $should_include_attributes ) {
 			foreach ( $attributes as $name => $value ) {
 				if ( false !== strpos( $name, '-' ) ) {
 					$should_include_attributes = false;
@@ -280,7 +279,7 @@ class WC_Product_Variation_Data_Store_CPT extends WC_Product_Data_Store_CPT impl
 			'sku'               => get_post_meta( $product->get_parent_id(), '_sku', true ),
 			'manage_stock'      => get_post_meta( $product->get_parent_id(), '_manage_stock', true ),
 			'backorders'        => get_post_meta( $product->get_parent_id(), '_backorders', true ),
-			'stock_quantity'    => wc_stock_amount( get_post_meta( $product->get_parent_id(), '_stock', true ) ),
+			'stock_quantity'    => get_post_meta( $product->get_parent_id(), '_stock', true ),
 			'weight'            => get_post_meta( $product->get_parent_id(), '_weight', true ),
 			'length'            => get_post_meta( $product->get_parent_id(), '_length', true ),
 			'width'             => get_post_meta( $product->get_parent_id(), '_width', true ),
@@ -288,7 +287,6 @@ class WC_Product_Variation_Data_Store_CPT extends WC_Product_Data_Store_CPT impl
 			'tax_class'         => get_post_meta( $product->get_parent_id(), '_tax_class', true ),
 			'shipping_class_id' => absint( current( $this->get_term_ids( $product->get_parent_id(), 'product_shipping_class' ) ) ),
 			'image_id'          => get_post_thumbnail_id( $product->get_parent_id() ),
-			'purchase_note'     => get_post_meta( $product->get_parent_id(), '_purchase_note', true ),
 		) );
 
 		// Pull data from the parent when there is no user-facing way to set props.

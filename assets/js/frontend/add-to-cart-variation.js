@@ -197,13 +197,13 @@
 		}
 
 		if ( variation.weight ) {
-			$weight.wc_set_content( variation.weight_html );
+			$weight.wc_set_content( variation.weight );
 		} else {
 			$weight.wc_reset_content();
 		}
 
 		if ( variation.dimensions ) {
-			$dimensions.wc_set_content( variation.dimensions_html );
+			$dimensions.wc_set_content( variation.dimensions );
 		} else {
 			$dimensions.wc_reset_content();
 		}

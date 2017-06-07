@@ -130,17 +130,18 @@ add_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_prod
 add_action( 'woocommerce_after_single_product_summary', 'woocommerce_upsell_display', 15 );
 add_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_related_products', 20 );
 
+add_action( 'woocommerce_single_product_summary_title', 'woocommerce_template_single_title', 5 );
 /**
  * Product Summary Box.
  *
- * @see woocommerce_template_single_title()
+ * 
  * @see woocommerce_template_single_rating()
  * @see woocommerce_template_single_price()
  * @see woocommerce_template_single_excerpt()
  * @see woocommerce_template_single_meta()
  * @see woocommerce_template_single_sharing()
  */
-add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_title', 5 );
+
 add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_rating', 10 );
 add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_price', 10 );
 add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_excerpt', 20 );

@@ -18,31 +18,26 @@
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
+};
+
+<?php
+ 
+/* crossells */
+ 
+$crosssell_ids = get_post_meta( get_the_ID(), '_crosssell_ids' ); 
+$crosssell_ids=$crosssell_ids[0];
+ 
+?>
+
+<?php
+	if(count($crosssell_ids)>0){
+$args = array( 'post_type' => 'product', 'posts_per_page' => 10, 'post__in' => $crosssell_ids );
+$loop = new WP_Query( $args );
+while ( $loop->have_posts() ) : $loop->the_post();
+?><a href='<?php the_permalink(); ?>'><?php
+the_post_thumbnail( 'thumbnail' );
+the_title();
+?></a><?php
+endwhile;
 }
-
-if ( $related_products ) : ?>
-
-	<section class="related products">
-
-		<h2><?php esc_html_e( 'Related products', 'woocommerce' ); ?></h2>
-
-		<?php woocommerce_product_loop_start(); ?>
-
-			<?php foreach ( $related_products as $related_product ) : ?>
-
-				<?php
-				 	$post_object = get_post( $related_product->get_id() );
-
-					setup_postdata( $GLOBALS['post'] =& $post_object );
-
-					wc_get_template_part( 'content', 'product' ); ?>
-
-			<?php endforeach; ?>
-
-		<?php woocommerce_product_loop_end(); ?>
-
-	</section>
-
-<?php endif;
-
-wp_reset_postdata();
+?>

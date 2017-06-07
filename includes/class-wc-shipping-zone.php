@@ -418,13 +418,8 @@ class WC_Shipping_Zone extends WC_Legacy_Shipping_Zone {
 			return false;
 		}
 
-		// Get method details.
-		$method = $this->data_store->get_method( $instance_id );
-
-		if ( $method ) {
-			$this->data_store->delete_method( $instance_id );
-			do_action( 'woocommerce_shipping_zone_method_deleted', $instance_id, $method->method_id, $this->get_id() );
-		}
+		$this->data_store->delete_method( $instance_id );
+		do_action( 'woocommerce_shipping_zone_method_deleted', $instance_id, $this->get_id() );
 
 		WC_Cache_Helper::get_transient_version( 'shipping', true );
 
